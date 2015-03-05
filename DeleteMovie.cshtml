@@ -1,0 +1,36 @@
+﻿@{
+
+    var id=Request["id"];  
+
+    var SQLSELECT = "SELECT * FROM Favorites where ID=@0";   
+
+    var db = Database.Open("Movie");    
+
+    var Movie = db.QuerySingle(SQLSELECT,id);    
+
+    var MovieName=Movie.Name; 
+
+
+   if(IsPost){    
+
+    var SQLDELETE = "DELETE FROM Favorites WHERE ID=@0";    
+
+    db.Execute(SQLDELETE,id);     
+
+    Response.Redirect("dataMoviesDelete.cshtml");    //前后台跳转页面的写法不同
+
+   }
+
+  }
+
+<h1>Delete a movie</h1>
+
+ <p>Are you sure you want to delete the movie <strong>@Movie.Name ?</strong></p></p>
+
+ <form action="" method="post"> <input type="submit" value="Yes"/> 
+     
+ <input type="button" value="No" onclick="window.location.href='dataMoviesDelete.cshtml'" />
+ 
+ <!--前后台跳转页面的写法不同-->
+ </form>
+

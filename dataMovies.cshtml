@@ -1,0 +1,31 @@
+﻿
+@{
+    
+Layout="~/siteLayout.cshtml";
+
+}
+
+@{
+
+     var db= Database.Open("Movie");
+
+    var sqlQ = "SELECT * FROM Favorites";
+
+     var data = db.Query(sqlQ);
+
+   }
+
+
+
+<div id="movieslist">
+
+    <ul>
+
+        @foreach(var row in data)
+        {
+             <li><a href="#">@row.Name,@row.Genre,@row.ReleaseYear</a></li>
+        }    
+
+   </ul>
+
+  </div>

@@ -1,0 +1,54 @@
+﻿@{
+    
+Layout="~/siteLayout.cshtml";
+
+}
+
+<h1>Add a New Movie to the database</h1>
+
+
+<form action="" method="post">
+
+      <p>Name:<input type="text" name="formName" /></p>
+
+      <p>Genre:<input type="text" name="formGenre" /></p>
+
+      <p>Year:<input type="text" name="formYear" /></p>
+
+       <p><input type="submit" value="Add Movie" /></p>
+
+   </form>
+
+
+@{
+    
+var MovieName ="";
+var MovieGenre="";
+var MovieYear="";
+if (IsPost){
+
+    MovieName=Request["formName"];
+    MovieGenre=Request["formGenre"];
+    MovieYear=Request["formYear"];
+
+     
+   var SQLINSERT = "INSERT INTO Favorites (Name, Genre, ReleaseYear) VALUES (@0, @1, @2)";
+
+   var db = Database.Open("Movie");
+
+   db.Execute(SQLINSERT, MovieName, MovieGenre, MovieYear);
+
+     
+
+    /*
+    var SQLINSERT = "INSERT INTO Favorites (Name, Genre, ReleaseYear) VALUES ('"+MovieName+"','"+MovieGenre+"','" +MovieYear+"')";
+
+   var db = Database.Open("Movie");
+
+    db.Execute(SQLINSERT);
+
+    */
+
+    Response.Redirect("dataMoviesALL.cshtml");
+}
+}
